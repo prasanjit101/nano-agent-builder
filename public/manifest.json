@@ -1,0 +1,35 @@
+{
+	"manifest_version": 3,
+	"name": "Nano AI agent builder",
+	"version": "1.0.0",
+	"description": "chrome extension to build ai agents with gemini nano ai",
+	"action": {
+		"default_popup": "index.html",
+		"default_title": "Nano AI agent builder"
+	},
+	"permissions": [
+		"storage",
+		"aiLanguageModelOriginTrial",
+		"tabs",
+		"sidePanel",
+		"notifications",
+		"scripting"
+	],
+	"trial_tokens": [
+		"Aq6uuc20gWGSbLPT8TsCZJOOc6Gfg9se+X7geVexvUVuFHs3K/peRo3Bl3Ls4Oj8FMHNz/SAUl94KyjK0N6VGQUAAAB4eyJvcmlnaW4iOiJjaHJvbWUtZXh0ZW5zaW9uOi8vbGJkZG5ja21lZW5wZmVwZmxhZG9vbmhlZmFtbGtrYmwiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElGb3JFeHRlbnNpb24iLCJleHBpcnkiOjE3NjA0ODYzOTl9"
+	],
+	"side_panel": {
+		"default_path": "sidepanel.html"
+	},
+	"background": {
+		"type": "module",
+		"service_worker": "./assets/background.js"
+	},
+	"host_permissions": ["<all_urls>"],
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["./assets/scraper.js"]
+		}
+	]
+}
