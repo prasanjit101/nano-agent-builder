@@ -1,4 +1,4 @@
-import { stepFunctionalities, Workflow } from '../src/interfaces/workflow.dto';
+import { Workflow } from '../src/interfaces/workflow.dto';
 const workflow: Workflow = {
 	id: '1732313233990',
 	name: 'write a cold email for a 1:1 call in linkedin',

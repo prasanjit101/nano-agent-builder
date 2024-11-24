@@ -23,10 +23,12 @@ chrome.runtime.onConnect.addListener(function (port) {
 
 				console.log({ injection });
 
-				port.postMessage({
-					content: injection?.[0]?.result ?? 'Failed to scrape page content',
-					status: !!injection?.[0]?.result ? 'success' : 'error',
-				});
+				try {
+					port.postMessage({
+						content: injection?.[0]?.result ?? 'Failed to scrape page content',
+						status: injection?.[0]?.result ? 'success' : 'error',
+					});
+				} catch (error) {}
 			}
 			console.groupEnd();
 		});

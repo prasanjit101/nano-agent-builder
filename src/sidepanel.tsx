@@ -6,6 +6,8 @@ import { getCurrentTab, getStorage } from './extension/utils';
 import { Badge } from '@/components/ui/badge';
 import { marked } from 'marked';
 
+const FETCH_STORAGE_INTERVAL = 2000;
+
 const SidePanel: React.FC = () => {
 	const [sidePanelData, setSidePanelData] = useState<SidePanelData>({
 		message: 'Nothing to show here',
@@ -14,15 +16,22 @@ const SidePanel: React.FC = () => {
 	const [tabId, setTabId] = useState<number | null | undefined>();
 	const [markdown, setMarkdown] = useState('No content loaded');
 
-	useEffect(() => {
-		getCurrentTab().then((tab) => {
-			const t = tab ? tab.id : null;
-			setTabId(t);
-			getStorage<SidePanelData>('sidePanelData').then((result) => {
-				setSidePanelData(result);
-				setMarkdown(result.message);
-			});
+	const loadTabData = async () => {
+		const tab = await getCurrentTab();
+		const t = tab ? tab.id : null;
+		setTabId(t);
+		getStorage<SidePanelData>('sidePanelData', false).then((result) => {
+			setSidePanelData(result);
+			setMarkdown(result.message);
 		});
+	};
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			loadTabData();
+		}, FETCH_STORAGE_INTERVAL);
+
+		return () => clearInterval(interval);
 	}, []);
 
 	return (

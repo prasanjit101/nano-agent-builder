@@ -1,5 +1,6 @@
 import { invokeAi } from '@/extension/utils';
-import { stepFunctionalities, Workflow } from '@/interfaces/workflow.dto';
+import { Workflow } from '@/interfaces/workflow.dto';
+import { stepFunctionalities } from '@/lib/utils';
 
 export const runWorkflow = async ({
 	workflow,
@@ -48,6 +49,11 @@ export const runWorkflow = async ({
 						{
 							role: 'user',
 							content: stepType.placeholder + (node.data.prompt ?? ''),
+						},
+						{
+							role: 'user',
+							content: `Note. Only output the response in supported languages or english by default`,
+							// to prevent nano AI from throwing error "The model attempted to output text in an untested language, and was prevented from doing so."
 						},
 					]);
 					return result;

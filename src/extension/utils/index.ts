@@ -14,9 +14,9 @@ export const setStorage = async (key: string, data: any) => {
 	return await chrome.storage.local.set({ [key]: JSON.stringify(data) });
 };
 
-export const getStorage = async <T = any>(key: string) => {
+export const getStorage = async <T = any>(key: string, log: boolean = true) => {
 	const a: { [key: string]: string } = await chrome.storage.local.get([key]);
-	console.log(`retrieved from storage ${key}`, a[key]);
+	log && console.log(`retrieved from storage ${key}`, a[key]);
 	return JSON.parse(a[key]) as T;
 };
 

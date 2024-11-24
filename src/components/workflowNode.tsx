@@ -9,9 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Trash2 } from 'lucide-react';
-import { Step, stepFunctionalities } from '@/interfaces/workflow.dto';
+import { Step } from '@/interfaces/workflow.dto';
 import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils';
+import { cn, stepFunctionalities } from '@/lib/utils';
 
 export const CustomNode = ({ data }: NodeProps<Step>) => {
 	return (
