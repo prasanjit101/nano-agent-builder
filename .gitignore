@@ -25,3 +25,4 @@ build
 *.sln
 *.sw?
 docs.md
+/external-sites

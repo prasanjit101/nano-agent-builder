@@ -14,7 +14,7 @@ const SidePanel: React.FC = () => {
 		status: 'processing',
 	});
 	const [tabId, setTabId] = useState<number | null | undefined>();
-	const [markdown, setMarkdown] = useState('No content loaded');
+	const [markdown, setMarkdown] = useState('loading...');
 
 	const loadTabData = async () => {
 		const tab = await getCurrentTab();
@@ -41,8 +41,8 @@ const SidePanel: React.FC = () => {
 				<Badge variant={'outline'}>{sidePanelData.status}</Badge>
 			</div>
 			<div
-				className="text-sm border p-2 rounded text-wrap"
-				dangerouslySetInnerHTML={{ __html: marked(markdown) }}
+				className="text-sm border p-2 rounded [&>*]:text-wrap"
+				dangerouslySetInnerHTML={{ __html: marked(markdown) as string }}
 			></div>
 			{sidePanelData.error && (
 				<>

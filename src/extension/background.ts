@@ -26,7 +26,11 @@ chrome.runtime.onConnect.addListener(function (port) {
 				try {
 					port.postMessage({
 						content: injection?.[0]?.result ?? 'Failed to scrape page content',
-						status: injection?.[0]?.result ? 'success' : 'error',
+						status:
+							injection?.[0]?.result &&
+							injection?.[0]?.result !== 'Page cannot be parsed'
+								? 'success'
+								: 'error',
 					});
 				} catch (error) {}
 			}
@@ -36,6 +40,14 @@ chrome.runtime.onConnect.addListener(function (port) {
 		port.onMessage.addListener(async (message: ChromeMessage, port: chrome.runtime.Port) => {
 			console.group('run_workflow');
 			console.log({ message, port });
+			if (!(chrome as any).aiOriginTrial.languageModel) {
+				port.postMessage({
+					status: 'error',
+					content: 'Chrome built-in AI not enabled in your browser. Check https://developer.chrome.com/docs/extensions/ai/prompt-api#add_support_to_localhost',
+				});
+				return;
+			}
+
 			if (message.action === 'processWorkflow') {
 				// process workflow
 				let sidePanelData: SidePanelData = {
@@ -66,7 +78,7 @@ chrome.runtime.onConnect.addListener(function (port) {
 				} else {
 					sidePanelData = {
 						status: 'error',
-						message: 'Something went wrong',
+						message: 'Something went wrong ' + (error ? '- ' + error : ''),
 						error,
 					};
 				}
@@ -74,7 +86,9 @@ chrome.runtime.onConnect.addListener(function (port) {
 
 				try {
 					port.postMessage({
-						content: `Workflow processed! Open the sidepanel to see the results`,
+						content:
+							error ??
+							`Workflow processed! Open the sidepanel to see the results`,
 					});
 				} catch (error) {}
 			}

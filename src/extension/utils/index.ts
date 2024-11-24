@@ -87,5 +87,6 @@ export const invokeAi = async (
 		console.log('Prompt failed');
 		console.error(e);
 		console.log('Prompt:', input);
+		throw e;
 	}
 };

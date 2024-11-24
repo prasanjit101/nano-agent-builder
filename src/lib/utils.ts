@@ -25,12 +25,6 @@ export const stepFunctionalities = [
 		sysPrompt: `You are a very intelligent AI. Your goal is to categorize into the categories asked by the user.`,
 	},
 	{
-		label: 'Translate',
-		value: 'translate',
-		placeholder: 'Translate to :',
-		sysPrompt: `You are an expert translator. Your goal is to translate the content given by the user into the language asked by the user.`,
-	},
-	{
 		label: 'Sentiment Analysis',
 		value: 'sentiment_analysis',
 		placeholder: 'Mention the condition & sentiments. Eg. Critisizing - When input is negative',

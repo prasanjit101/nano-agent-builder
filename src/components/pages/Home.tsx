@@ -146,7 +146,11 @@ export default function Home() {
 						</TooltipProvider>
 					</Button>
 					<Separator orientation="vertical" className="h-7" />
-					<Button size={'lg'} onClick={() => handleExecuteWorkflow()}>
+					<Button
+						disabled={!currWorkflow || !corpus}
+						size={'lg'}
+						onClick={() => handleExecuteWorkflow()}
+					>
 						<Play className="mr-2" /> Run
 					</Button>
 					<Separator orientation="horizontal" className="my-7" />
