@@ -19,6 +19,7 @@ export const runWorkflow = async ({
 			throw new Error('Workflow not found');
 		}
 
+		//  TODO: add new workflow processing with non-linear workflow processing capabilities
 		async function processWorkflow(graph: Workflow) {
 			// Helper function to find a node by its ID
 			function findNodeById(nodes: Workflow['nodes'], id: string) {
